@@ -1,3 +1,4 @@
+
 # ChatInformationTheory2023
 ## Laboratory №1
 **Дата:** 23/05/2023
@@ -5,7 +6,6 @@
 **Выполнил:** Liao Xin, M4150 
 
 **Название:** Сжатие изображений при помощи нейронных сестей
-
 
 
 **Требования к алгоритму:**
@@ -20,20 +20,37 @@ This repo is implementation for [Learned Image Compression with Discretized Gaus
 
 **the Network architecture:**
 ![architecture](https://github.com/liaoxin-a/ChatInformationTheory2023/blob/main/image/architecture.JPG)
+
+
+
 Cжатие изображения может быть сформулировано как:
-где x, xˆ, y, and yˆ are raw images, reconstructed images,
-a latent presentation before quantization, and compressed
-codes, respectively.
+| Формула | Определения |
+| ------- |------|
+| ![Gaussian Mixture Likelihoods model](https://github.com/liaoxin-a/ChatInformationTheory2023/blob/main/image/model.JPG) |где <br>$x$-необработанные изображения,<br>$\hat{x}$-реконструированные изображения,<br>$y$-скрытое представление перед квантованием,  <br>$\hat{y}$-сжатые коды,<br>$U\mid Q$-квантование и энтропийное кодирование |
 
+### Реализация кодера
+Во время тренировки квантование аппроксимируется однородным шумом U для генерации шумовых кодов $\widetilde{y}$
+```python
+    #!/usr/bin/env python3
+    feature = self.Encoder(input_image)#Analysis_transform
+    z = self.priorEncoder(feature)#Hyper_analysis
+    if self.training:
+        compressed_z = z + quant_noise_z
+    else:
+        compressed_z = torch.round(z)
+```
 
-![Gaussian Mixture Likelihoods model](https://github.com/liaoxin-a/ChatInformationTheory2023/blob/main/image/model.JPG)
-
-
-## Реализация кодера
-image
-
-## Реализация декодера
-image
+### Реализация декодера
+Во время вывода, $U\mid Q$ представляет реальное круговое квантование для генерации $\hat{y}$ и последующие энтропийные кодеры для генерации битового потока.
+```python
+    #!/usr/bin/env python3
+    feature_renorm = feature # feature from Encoder
+    if self.training:
+        compressed_feature_renorm = feature_renorm + quant_noise_feature
+    else:
+        compressed_feature_renorm = torch.round(feature_renorm)
+    recon_image = self.Decoder(compressed_feature_renorm) #Synthesis_transform
+```
 
 ## Качественные метрики
 ### Peak Signal-to-Noise Ratio (PSNR)
@@ -59,7 +76,7 @@ According to [wikipedia](https://en.wikipedia.org/wiki/Color_depth):
 ![result](https://github.com/liaoxin-a/ChatInformationTheory2023/blob/main/image/result.png)
 
 ## Использованные источники
-[1] https://openaccess.thecvf.com/content_CVPR_2020/papers/Cheng_Learned_Image_Compression_With_Discretized_Gaussian_Mixture_Likelihoods_and_Attention_CVPR_2020_paper.pdf
+[1]https://openaccess.thecvf.com/content_CVPR_2020/papers/Cheng_Learned_Image_Compression_With_Discretized_Gaussian_Mixture_Likelihoods_and_Attention_CVPR_2020_paper.pdf
 
 [2] https://github.com/LiuLei95/PyTorch-Learned-Image-Compression-with-GMM-and-Attention/tree/main
 
