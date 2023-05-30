@@ -52,6 +52,18 @@ Cжатие изображения может сформулировано ка�
     recon_image = self.Decoder(compressed_feature_renorm) #Synthesis_transform
 ```
 
+## Инструкция по запуску кодера и декодера
+```python
+    #!/usr/bin/env python3
+    model = ImageCompressor(out_channel_N)
+    #Encoder
+    feature = model.Encoder(input_image)
+    compressed_feature_renorm = torch.round(feature)
+    #Decoder
+    recon_image = model.Decoder(compressed_feature_renorm)
+    clipped_recon_image = recon_image.clamp(0., 1.)
+```
+
 ## Качественные метрики
 ### Peak Signal-to-Noise Ratio (PSNR)
 
