@@ -23,7 +23,7 @@ This repo is implementation for [Learned Image Compression with Discretized Gaus
 
 
 
-Cжатие изображения может быть сформулировано как:
+Cжатие изображения может сформулировано как:
 | Формула | Определения |
 | ------- |------|
 | ![Gaussian Mixture Likelihoods model](https://github.com/liaoxin-a/ChatInformationTheory2023/blob/main/image/model.JPG) |где **<br>$x$-необработанные изображения,<br>$\hat{x}$-реконструированные изображения,<br>$y$-скрытое представление перед квантованием,  <br>$\hat{y}$-сжатые коды,<br>$U\mid Q$-квантование и энтропийное кодирование** |
