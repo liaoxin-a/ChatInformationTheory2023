@@ -7,22 +7,6 @@
 **Название:** Сжатие изображений при помощи нейронных сестей
 
 
-**Описание структуры каталогов:**
-```
-./
-│   readme.md
-│      
-├───src
-│   └───main
-│       ├───java
-│       │   └───lab3
-│       └───resourse
-└───target
-    ├───classes
-    │   └───lab3
-    └───test-classes
-```
-
 
 **Требования к алгоритму:**
 - Написать кодер и декодер ,которые работают как отдельные программы.
@@ -31,10 +15,24 @@
 - Алгоритм сжатия должен включать в себя вычисление признаков,квантование признаков,сжатие квантованных признаков без потерь.
 
 
-**Реализация кодера**
+## Реализация
+This repo is implementation for [Learned Image Compression with Discretized Gaussian Mixture Likelihoods and Attention Modules](https://github.com/LiuLei95/PyTorch-Learned-Image-Compression-with-GMM-and-Attention/tree/main) in pytorch.
+
+**the Network architecture:**
+![architecture](https://github.com/liaoxin-a/ChatInformationTheory2023/blob/main/image/architecture.JPG)
+Cжатие изображения может быть сформулировано как:
+где x, xˆ, y, and yˆ are raw images, reconstructed images,
+a latent presentation before quantization, and compressed
+codes, respectively.
+
+
+![Gaussian Mixture Likelihoods model](https://github.com/liaoxin-a/ChatInformationTheory2023/blob/main/image/model.JPG)
+
+
+## Реализация кодера
 image
 
-**Реализация декодера**
+## Реализация декодера
 image
 
 ## Качественные метрики
@@ -43,23 +41,25 @@ image
 According to [wikipedia](https://en.wikipedia.org/wiki/Peak_signal-to-noise_ratio):
 >Peak signal-to-noise ratio, often abbreviated PSNR, is an engineering term for the ratio between the maximum possible power of a signal and the power of corrupting noise that affects the fidelity of its representation. Because many signals have a very wide dynamic range, PSNR is usually expressed in terms of the logarithmic decibel scale.
 
-### Peak Signal-to-Noise Ratio (PSNR)
+### Bits Per Pixel (BPP)
 
-According to [wikipedia](https://en.wikipedia.org/wiki/Peak_signal-to-noise_ratio):
->Peak signal-to-noise ratio, often abbreviated PSNR, is an engineering term for the ratio between the maximum possible power of a signal and the power of corrupting noise that affects the fidelity of its representation. Because many signals have a very wide dynamic range, PSNR is usually expressed in terms of the logarithmic decibel scale.
+According to [wikipedia](https://en.wikipedia.org/wiki/Color_depth):
+>Color depth or colour depth (see spelling differences), also known as bit depth, is either the number of bits used to indicate the color of a single pixel, or the number of bits used for each color component of a single pixel. When referring to a pixel, the concept can be defined as bits per pixel (bpp).
 
+**Количество бит,затрачиваемое в среднем на один пиксель изображения для тестовых изображений.**
 
 ## Эксперименты: 
-| Проблема | Размер | Параметры popsize и gens | Длина маршрута | Количество итераций до сходимости |Оптимальный маршрут|
-| ------- |------| ------| ------| ------|------|
-| XQF131 | 131 |	10,10 | 694.891 | 0 | 564 |
-| XQF131 | 131 | 100,10000 | 662.821 | 3209 |  564 |
-| XQG237 | 237 |	10,10 | 1241.59 | 0 | 1019|
-| XQG237 | 237 | 100,10000 | 1206.756 | 7372 | 1019|
-| PMA343 | 343 |	10,10 | 1655.441 | 0 | 1368 |
-| PMA343 | 343 | 100,10000 | 1621.804 | 6452 | 1368 |
-| PKA379 | 379 |	10,10 | 1634.006 | 0 | 1332 |
-| PKA379 | 379 | 100,10000 | 1592.456 | 3221 | 1332 |
-| BCL380 | 380 |	10,10 | 1912.537 | 0 | 1621 |
-| BCL380 | 380 | 100,10000 | 1855.152 | 1324 | 1621 |
+| Kартина | Результат |
+| ------- |------|
+| Lena | ![final_lena](https://github.com/liaoxin-a/ChatInformationTheory2023/blob/main/image/final_lena.png) |	
+| Peppers | ![final_peppers](https://github.com/liaoxin-a/ChatInformationTheory2023/blob/main/image/final_peppers.png) | 
+| Baboon | ![final_baboon](https://github.com/liaoxin-a/ChatInformationTheory2023/blob/main/image/final_baboon.png) |
+
+## Графики сравнения алгоритма с JPEG
+![result](https://github.com/liaoxin-a/ChatInformationTheory2023/blob/main/image/result.png)
+
+## Использованные источники
+[1] https://openaccess.thecvf.com/content_CVPR_2020/papers/Cheng_Learned_Image_Compression_With_Discretized_Gaussian_Mixture_Likelihoods_and_Attention_CVPR_2020_paper.pdf
+
+[2] https://github.com/LiuLei95/PyTorch-Learned-Image-Compression-with-GMM-and-Attention/tree/main
 
